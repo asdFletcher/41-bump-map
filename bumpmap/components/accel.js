@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-nati
 import { Constants, Accelerometer } from 'expo';
 import util from 'util';
 
-import * as actions from "../actions.js";
+import * as actions from "../store/actions.js";
 import { connect } from 'react-redux';
 
 const mapDispatchToProps = (dispatch) => {

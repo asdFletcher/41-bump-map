@@ -3,12 +3,10 @@ import { Platform, Text, View, StyleSheet, Dimensions } from 'react-native';
 import { Constants, Location } from 'expo';
 import util from 'util';
 
-import * as actions from "../actions.js";
+import * as actions from "../store/actions.js";
 import { connect } from 'react-redux';
 
 const mapDispatchToProps = (dispatch) => {
-  // console.log(`in MDTP util.inspect(dispatch)🌰: ${util.inspect(dispatch)}`);
-  // console.log(`in MDTP util.inspect(actions)🌰: ${util.inspect(actions)}`);
   return ({
     saveLoc: (payload) => {
       return dispatch(actions.saveLoc(payload));
@@ -29,7 +27,6 @@ class GPSSensor extends React.Component {
   };
 
   componentWillMount = () => {
-    console.log(`will mount 🍏`)
     if (Platform.OS === 'android' && !Constants.isDevice) {
       this.setState({
         errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
@@ -40,7 +37,6 @@ class GPSSensor extends React.Component {
   }
 
   _registerLocationGetter = async () => {
-    console.log(`_registerLocationGetter: ⚽️`);
     let { status } = await Expo.Permissions.askAsync(Expo.Permissions.LOCATION);
     if (status !== 'granted') {
       this.setState({

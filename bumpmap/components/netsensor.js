@@ -1,31 +1,49 @@
 import React from 'react';
 import { NetInfo, StyleSheet, Text, View } from "react-native";
+import { connect } from 'react-redux';
+import * as actions from "../store/actions.js";
+
 import util from 'util';
 
-class NetSensor extends React.Component{
+const mapDispatchToProps = (dispatch) => {
+  return ({
+    wifi: (payload) => {
+      return dispatch(actions.wifi(payload));
+    },
+  });
+}
 
-  state = {
-    connectionType: '',
+const mapStateToProps = (store) => {
+  return ({
+    connectionInfo: store.dataStore.connectionInfo,
+  });
+}
+
+
+class NetSensor extends React.Component{
+  componentDidMount() {
+    // console.log(`mounted 🌰`);
+    NetInfo.addEventListener('connectionChange', this._handleNetworkChange);
   }
 
-  componentDidMount() {
-    console.log(`mounted 🌰`);
-    console.log(`NetInfo ${util.inspect(NetInfo)}`)
-    NetInfo.addEventListener('connectionChange', (connectionInfo) => {
-      console.log(`network change detected ⚾️ connectionInfo: ${util.inspect(connectionInfo)}`);
-      this.setState({connectionType: connectionInfo.type});
-    });
+  _handleNetworkChange = (connectionInfo) => {
+    // console.log(`network change detected ⚾️ connectionInfo: ${util.inspect(connectionInfo)}`);
+    // console.log(` 🍪🍪🍪${util.inspect(connectionInfo)}`);
+    this.props.wifi(connectionInfo);
   }
 
   render(){
+    // console.log(`rendering network`);
+    // console.log(` 🍰🍰🍰 this.props.connectionInfo: ${util.inspect(this.props.connectionInfo)}`);
+
+    let connection = this.props.connectionInfo ? this.props.connectionInfo.type : 'detecting...';
     return (
       <View style={[styles.container, styles.all]} >
-        <Text style={[styles.text, styles.all, styles.textHeader]} >net sensor component:</Text>
-        <Text style={[styles.text, styles.all, styles.connection ]} >{this.state.connectionType}</Text>
+        <Text style={[styles.text, styles.all, styles.textHeader]}>net sensor component</Text>
+        <Text style={[styles.text, styles.all, styles.connection ]}>{connection}</Text>
       </View>
     );
   }
-
 }
 
 const styles = StyleSheet.create({
@@ -53,4 +71,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default NetSensor;
+export default connect(mapStateToProps, mapDispatchToProps)(NetSensor);

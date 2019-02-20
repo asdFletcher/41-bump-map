@@ -28,6 +28,8 @@ let initialState = {
     accelerometerData: {x: 0, y: 0, z: 0}
   },
   lastLocation: initialLocation,
+  networkInfo: { type: 'wifi', effectiveType: 'unknown' },
+  charging: false,
 };
 
 export default (state = initialState, action) => {
@@ -57,7 +59,15 @@ export default (state = initialState, action) => {
         lastLocation: payload,
       };
       return updateLocation;
-      
+    
+    case "WIFI":
+      console.log(`in the wifi: payload ${payload}`);
+      return { ...state, connectionInfo: payload}
+
+    case "CHARGING":
+      console.log(`in the charging`);
+      return { ...state, charging: payload}
+
     default:
       return state;
   }

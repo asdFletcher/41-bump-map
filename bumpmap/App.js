@@ -8,7 +8,7 @@ import Uploader from "./components/uploader";
 // import * as actions from "./store/actions.js";
 import { Provider } from "react-redux";
 
-import createStore from '../index.js';
+import createStore from './store/index.js';
 const store = createStore();
 
 export default class App extends React.Component {
@@ -28,6 +28,7 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 25,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',

@@ -12,3 +12,17 @@ export const saveLoc = payload => {
     payload,
   };
 };
+
+export const wifi = payload => {
+  return {
+    type: 'WIFI',
+    payload,
+  };
+};
+
+export const charging = payload => {
+  return {
+    type: 'CHARGING',
+    payload,
+  };
+};
