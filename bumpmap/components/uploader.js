@@ -14,7 +14,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (store) => {
-  console.log(`in MSTP util.inspect(actions)🌰: ${util.inspect(store.dataStore.networkInfo)}`);
+  // console.log(`in MSTP util.inspect(actions)🌰: ${util.inspect(store.dataStore.networkInfo)}`);
   return ({
     networkInfo: store.dataStore.networkInfo,
   });
